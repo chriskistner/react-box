@@ -6,14 +6,15 @@ export default class InBox extends Component {
         super(props)
 
         this.state = {
-
+            opened: null
         }
     }
 
     render() {
+        const messages = this.props.inBox;
         return(
             <div className="container">
-                displayedBooks.map(mail => {return <MessageRow key= {mail.id} addBook={() => this.props.addToCart(book.id)} {...book}/>})}
+                {messages.map(mail => {return <MessageRow key= {mail.id} {...mail}/>})}
             </div>
         )
     }

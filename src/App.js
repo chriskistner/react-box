@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import ToolBar from './ToolBar.js';
+import InBox from './InBox.js'
 import axios from 'axios';
-// const url = process.env.REACT_APP_API_URL;
+const url = process.env.REACT_APP_API_URL;
 
 class App extends Component {
   constructor(props) {
@@ -14,8 +15,7 @@ class App extends Component {
 
   getMessages = async () => {
     try {
-      const response = await axios.get('http://localhost:8082/api/messages');
-      console.log(response.data)
+      const response = await axios.get(`${url}/messages`);
       this.setState({
         inbox: response.data
       })
@@ -35,7 +35,7 @@ class App extends Component {
           <ToolBar />
         </header>
         <main className = "container">
-
+          <InBox inBox={this.state.inbox}/>
         </main>
       </div>
     );

@@ -1,33 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default function MessageRow({subject, read, starred, labels, body, id}) {
+export default class MessageRow extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            subject: this.props.subject,
+            body: this.props.body,
+            star: this.props.starred ? 'star fa fa-star' : 'star fa fa-star-o',
+            hasRead: this.props.read ? 'read' : 'unread',
+            isSelected: this.props.selected ? 'selected' : null,
+            viewing: false,
+        }
+    }
 
-    const star = starred ? 'star fa fa-star' : 'star fa fa-star-o';
-
-    return (
-        <div>
-            <div class="row message read selected">
-                <div class="col-xs-1">
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <input type="checkbox" checked={read} />
-                        </div>
-                        <div class="col-xs-2">
-                            <i class={star}></i>
+    handleChange = (event) => {
+        this.setState({
+          [event.target.name]: event.target.value
+        })
+      };
+    
+    render() {
+        return (
+            <div>
+                <div className={`row message ${this.state.hasRead} ${this.state.isSelected}`}>
+                    <div className="col-xs-1">
+                        <div className="row">
+                            <div className="col-xs-2">
+                                <input type="checkbox" checked='checked' onChange={this.handleChange} />
+                            </div>
+                            <div className="col-xs-2">
+                                <i className={this.state.star}></i>
+                            </div>
                         </div>
                     </div>
+                    <div className="col-xs-11">
+                        {this.state.subject}
+                    </div>
                 </div>
-                <div class="col-xs-11">
-                    <a href="#">
-                    {subject}
-                    </a>
-                </div>
-            </div>
-            <div class="row message-body">
-                <div class="col-xs-11 col-xs-offset-1">
-                    {body}
+                <div className="row message-body">
+                    <div className="col-xs-11 col-xs-offset-1">
+                        {this.state.body}
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 };
