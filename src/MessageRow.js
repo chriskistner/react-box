@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class MessageRow extends Component {
     constructor(props) {
@@ -6,7 +7,7 @@ export default class MessageRow extends Component {
         this.state = {
             subject: this.props.subject,
             body: this.props.body,
-            star: this.props.starred ? 'star fa fa-star' : 'star fa fa-star-o',
+            starred: this.props.starred,
             hasRead: this.props.read ? 'read' : 'unread',
             isSelected: this.props.selected ? 'selected' : null,
             viewing: false,
@@ -14,7 +15,6 @@ export default class MessageRow extends Component {
     };
 
     handleChange = (event) => {
-        console.log(event.target.name)
         this.setState({
           [event.target.name]: event.target.value
         })
@@ -26,6 +26,22 @@ export default class MessageRow extends Component {
         })
     }
 
+    toggleStar = () => {
+        this.setState({
+            star: !this.state.star
+        })
+    }
+
+    handleStarStatus = async () => {
+        const activeStar = 'star fa fa-star';
+        const notStar = 'star fa fa-star-o';
+        try {
+        }catch(err) {
+            console.log(err)
+        }
+        return this.state.starred ? notStar : activeStar
+    }
+ 
     handleMessageBody = () => {
         const viewMessage = (
             <div className="row message-body">
@@ -44,10 +60,10 @@ export default class MessageRow extends Component {
                     <div className="col-xs-1">
                         <div className="row">
                             <div className="col-xs-2">
-                                <input type="checkbox" checked={this.state.isSelected} name="checkBox" onChange={this.handleChange} />
+                                <input type="checkbox" checked={this.state.isSelected} name="isSelected" onChange={this.handleChange} />
                             </div>
                             <div className="col-xs-2">
-                                <i name="star" className={this.state.star} onClick={this.handleChange}></i>
+                                <i name="star" className={this.handleStarStatus()} onClick={this.toggleStar}></i>
                             </div>
                         </div>
                     </div>
