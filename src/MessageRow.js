@@ -11,13 +11,31 @@ export default class MessageRow extends Component {
             isSelected: this.props.selected ? 'selected' : null,
             viewing: false,
         }
-    }
+    };
 
     handleChange = (event) => {
+        console.log(event.target.name)
         this.setState({
           [event.target.name]: event.target.value
         })
       };
+
+    toggleBody = () => {
+        this.setState({
+            viewing: !this.state.viewing
+        })
+    }
+
+    handleMessageBody = () => {
+        const viewMessage = (
+            <div className="row message-body">
+                <div className="col-xs-11 col-xs-offset-1">
+                    {this.state.body}
+                </div>
+            </div>
+        )
+        return this.state.viewing ? viewMessage :  null
+    }
     
     render() {
         return (
@@ -26,23 +44,21 @@ export default class MessageRow extends Component {
                     <div className="col-xs-1">
                         <div className="row">
                             <div className="col-xs-2">
-                                <input type="checkbox" checked='checked' onChange={this.handleChange} />
+                                <input type="checkbox" checked={this.state.isSelected} name="checkBox" onChange={this.handleChange} />
                             </div>
                             <div className="col-xs-2">
-                                <i className={this.state.star}></i>
+                                <i name="star" className={this.state.star} onClick={this.handleChange}></i>
                             </div>
                         </div>
                     </div>
-                    <div className="col-xs-11">
+                    <div className="col-xs-11" name="viewing" onClick ={this.toggleBody}>
                         {this.state.subject}
                     </div>
                 </div>
-                <div className="row message-body">
-                    <div className="col-xs-11 col-xs-offset-1">
-                        {this.state.body}
-                    </div>
-                </div>
+                {
+                    this.handleMessageBody()
+                }
             </div>
         )
-    }
+    };
 };
