@@ -11,7 +11,13 @@ class App extends Component {
     this.state = {
       inbox: []
     }
-  }
+  };
+
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  };
 
   getMessages = async () => {
     try {
@@ -24,6 +30,15 @@ class App extends Component {
     }
   };
 
+  toggleStar = async (id) => {
+    try {
+        await axios.patch(`${url}/messages/`, {messageIds: [id], command: 'star'});
+        this.getMessages();
+    }catch(err) {
+        console.log(err)
+    }
+};
+
   componentDidMount() {
     this.getMessages();
   };
@@ -35,7 +50,7 @@ class App extends Component {
           <ToolBar />
         </header>
         <main className = "container">
-          <InBox inBox={this.state.inbox}/>
+          <InBox inBox={this.state.inbox} toggleStar={this.toggleStar}/>
         </main>
       </div>
     );
