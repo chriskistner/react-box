@@ -78,6 +78,16 @@ selectAll = () => {
   })
 }
 
+handleSelectAll = () => {
+  let allSel = false;
+  for (const email of this.state.inbox) {
+    if (!email.selected) {
+      allSel = true
+    }
+  }
+  allSel === true ? this.selectAll() : this.unSelectAll();
+}
+
 componentDidMount() {
   this.getMessages();
 };
@@ -86,7 +96,7 @@ componentDidMount() {
     return (
       <div className="App">
         <header className="container">
-          <ToolBar selectAll ={this.selectAll} markAsRead={this.markAsRead}/>
+          <ToolBar handleSelectAll ={this.handleSelectAll} markAsRead={this.markAsRead}/>
         </header>
         <main className = "container">
           <InBox inBox={this.state.inbox} toggleSelection={this.toggleSelection} toggleStar={this.toggleStar}/>

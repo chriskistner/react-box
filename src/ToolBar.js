@@ -17,7 +17,7 @@ export default class ToolBar extends Component {
                     unread messages
                 </p>
 
-                <button className="btn btn-default" onClick={this.props.selectAll}>
+                <button className="btn btn-default" onClick={this.props.handleSelectAll}>
                     <i className="fa fa-check-square-o"></i>
                 </button>
 
