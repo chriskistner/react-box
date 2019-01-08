@@ -14,6 +14,14 @@ export default class MessageRow extends Component {
         })
     };
 
+    toggleRead = () => {
+        return this.props.read ? "read" : "unread";
+    }
+
+    toggleSelected = () => {
+        return this.props.selected ? "selected" : null;
+    }
+
     handleSelectStatus = () => {
         return this.props.selected ? true : false
     }
@@ -40,7 +48,7 @@ export default class MessageRow extends Component {
     render() {
         return (
             <div>
-                <div className={`row message ${this.props.hasRead} ${this.props.selected}`}>
+                <div className={`row message ${this.toggleRead()} ${this.toggleSelected()}`}>
                     <div className="col-xs-1">
                         <div className="row">
                             <div className="col-xs-2">
