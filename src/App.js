@@ -39,11 +39,22 @@ class App extends Component {
     }
 };
 
+markAsRead = async () => {
+  const inBox = this.state.inbox;
+  const ids = inBox.filter(emails => emails.selected === true).map(email => email.id)
+  try {
+    await axios.patch(`${url}/messages/`, {messageIds: ids, command: 'read'});
+  }catch(err) {
+    console.log(err)
+  }
+  this.getMessages();
+  this.unSelectAll();
+}
+
 toggleSelection = (id) => {
   const updatedInbox = [...this.state.inbox]
   const result = updatedInbox.find(e => e.id === id)
   if (result) {
-    // console.log(result)
     result.selected = !result.selected
     this.setState({
       inbox: updatedInbox
@@ -51,10 +62,17 @@ toggleSelection = (id) => {
   } 
 };
 
+unSelectAll = () => {
+  const updatedInbox = [...this.state.inbox];
+  updatedInbox.map(target => target.selected = false);
+  this.setState({
+    inbox: updatedInbox
+  })
+}
+
 selectAll = () => {
   const updatedInbox = [...this.state.inbox];
-  const result = updatedInbox.map(target => target.selected = true);
-  console.log(result);
+  updatedInbox.map(target => target.selected = true);
   this.setState({
     inbox: updatedInbox
   })
@@ -68,7 +86,7 @@ componentDidMount() {
     return (
       <div className="App">
         <header className="container">
-          <ToolBar selectAll ={this.selectAll} />
+          <ToolBar selectAll ={this.selectAll} markAsRead={this.markAsRead}/>
         </header>
         <main className = "container">
           <InBox inBox={this.state.inbox} toggleSelection={this.toggleSelection} toggleStar={this.toggleStar}/>

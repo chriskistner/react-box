@@ -21,7 +21,7 @@ export default class ToolBar extends Component {
                     <i className="fa fa-check-square-o"></i>
                 </button>
 
-                <button className="btn btn-default">
+                <button onClick={this.props.markAsRead} className="btn btn-default">
                     Mark As Read
                 </button>
 
