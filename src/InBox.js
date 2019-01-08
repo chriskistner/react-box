@@ -6,7 +6,7 @@ export default class InBox extends Component {
         super(props)
 
         this.state = {
-            opened: null
+
         }
     }
 
@@ -14,7 +14,7 @@ export default class InBox extends Component {
         const messages = this.props.inBox;
         return(
             <div className="container">
-                {messages.map(mail => {return <MessageRow toggleStar={this.props.toggleStar} key= {mail.id} {...mail}/>})}
+                {messages.map(mail => {return <MessageRow toggleSelection={this.props.toggleSelection} toggleStar={this.props.toggleStar} key= {mail.id} {...mail}/>})}
             </div>
         )
     }

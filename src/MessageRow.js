@@ -14,6 +14,10 @@ export default class MessageRow extends Component {
         })
     };
 
+    handleSelectStatus = () => {
+        return this.props.selected ? true : false
+    }
+
     handleStarStatus = () => {
         const activeStar = 'star fa fa-star';
         const notStar = 'star fa fa-star-o';
@@ -21,7 +25,7 @@ export default class MessageRow extends Component {
             return activeStar
         } else { return notStar}
     };
- 
+
     handleMessageBody = () => {
         const viewMessage = (
             <div className="row message-body">
@@ -36,11 +40,11 @@ export default class MessageRow extends Component {
     render() {
         return (
             <div>
-                <div className={`row message ${this.props.hasRead} ${this.props.isSelected}`}>
+                <div className={`row message ${this.props.hasRead} ${this.props.selected}`}>
                     <div className="col-xs-1">
                         <div className="row">
                             <div className="col-xs-2">
-                                <input type="checkbox" checked={this.props.isSelected} name="isSelected" onChange={this.handleChange} />
+                                <input type="checkbox" checked={this.handleSelectStatus()} name="isSelected" onChange={() => this.props.toggleSelection(this.props.id)} />
                             </div>
                             <div className="col-xs-2">
                                 <i name="starred" className={this.handleStarStatus()} onClick={() => this.props.toggleStar(this.props.id)}></i>

@@ -39,9 +39,21 @@ class App extends Component {
     }
 };
 
-  componentDidMount() {
-    this.getMessages();
-  };
+toggleSelection = (id) => {
+  const updatedInbox = [...this.state.inbox]
+  const result = updatedInbox.find(e => e.id === id)
+  if (result) {
+    // console.log(result)
+    result.selected = !result.selected
+    this.setState({
+      inbox: updatedInbox
+    })
+  } 
+};
+
+componentDidMount() {
+  this.getMessages();
+};
 
   render() {
     return (
@@ -50,7 +62,7 @@ class App extends Component {
           <ToolBar />
         </header>
         <main className = "container">
-          <InBox inBox={this.state.inbox} toggleStar={this.toggleStar}/>
+          <InBox inBox={this.state.inbox} toggleSelection={this.toggleSelection} toggleStar={this.toggleStar}/>
         </main>
       </div>
     );
