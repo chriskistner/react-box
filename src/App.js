@@ -51,6 +51,15 @@ toggleSelection = (id) => {
   } 
 };
 
+selectAll = () => {
+  const updatedInbox = [...this.state.inbox];
+  const result = updatedInbox.map(target => target.selected = true);
+  console.log(result);
+  this.setState({
+    inbox: updatedInbox
+  })
+}
+
 componentDidMount() {
   this.getMessages();
 };
@@ -59,7 +68,7 @@ componentDidMount() {
     return (
       <div className="App">
         <header className="container">
-          <ToolBar />
+          <ToolBar selectAll ={this.selectAll} />
         </header>
         <main className = "container">
           <InBox inBox={this.state.inbox} toggleSelection={this.toggleSelection} toggleStar={this.toggleStar}/>
