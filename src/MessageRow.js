@@ -44,6 +44,11 @@ export default class MessageRow extends Component {
         )
         return this.state.viewing ? viewMessage :  null
     };
+
+    generateTags = () => {
+        const tags = this.props.labels;
+        return tags.map(target => (<span className="label label-warning">{target}</span>))
+    }
     
     render() {
         return (
@@ -60,6 +65,7 @@ export default class MessageRow extends Component {
                         </div>
                     </div>
                     <div className="col-xs-11" name="viewing" onClick ={this.toggleBody}>
+                        {this.generateTags()}
                         {this.props.subject}
                     </div>
                 </div>
