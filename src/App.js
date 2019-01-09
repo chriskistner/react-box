@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import ToolBar from './ToolBar.js';
 import InBox from './InBox.js'
+import ComposeForm from './ComposeForm.js';
 import axios from 'axios';
 const url = process.env.REACT_APP_API_URL;
 
@@ -9,7 +10,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      inbox: []
+      inbox: [],
+      compose: false
     }
   };
 
@@ -131,6 +133,7 @@ componentDidMount() {
           <ToolBar inBox={this.state.inbox} removeLabel={this.removeLabel} addLabel={this.addLabel} handleSelectAll ={this.handleSelectAll} markAsUnread={this.markAsUnread} markAsRead={this.markAsRead}/>
         </header>
         <main className = "container">
+          <ComposeForm />
           <InBox inBox={this.state.inbox} toggleSelection={this.toggleSelection} toggleStar={this.toggleStar}/>
         </main>
       </div>
