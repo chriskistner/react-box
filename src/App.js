@@ -141,6 +141,17 @@ removeLabel = async (value = null) => {
   }
 }
 
+deleteMessage = async () => {
+  const inBox = this.state.inbox;
+  const ids = inBox.filter(emails => emails.selected === true).map(email => email.id);
+  try {
+    await axios.patch(`${url}/messages`, {messageIds: ids, command: 'delete'});
+    this.getMessages();
+  }catch(err) {
+    console.log(err)
+  }
+}
+
 componentDidMount() {
   this.getMessages();
 };
@@ -149,7 +160,15 @@ componentDidMount() {
     return (
       <div className="App">
         <header className="container">
-          <ToolBar toggleForm={this.toggleForm} inBox={this.state.inbox} removeLabel={this.removeLabel} addLabel={this.addLabel} handleSelectAll ={this.handleSelectAll} markAsUnread={this.markAsUnread} markAsRead={this.markAsRead}/>
+          <ToolBar toggleForm={this.toggleForm} 
+          inBox={this.state.inbox} 
+          removeLabel={this.removeLabel} 
+          addLabel={this.addLabel} 
+          handleSelectAll ={this.handleSelectAll} 
+          markAsUnread={this.markAsUnread} 
+          markAsRead={this.markAsRead}
+          deleteMessage={this.deleteMessage}
+          />
         </header>
         <main className = "container">
           {

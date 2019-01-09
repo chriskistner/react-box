@@ -60,7 +60,7 @@ export default class ToolBar extends Component {
                     <option value="gschool">gschool</option>
                 </select>
 
-                <button className="btn btn-default">
+                <button onClick={this.props.deleteMessage} className="btn btn-default">
                     <i className="fa fa-trash-o"></i>
                 </button>
             </div>
