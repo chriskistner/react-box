@@ -43,7 +43,18 @@ markAsRead = async () => {
   const inBox = this.state.inbox;
   const ids = inBox.filter(emails => emails.selected === true).map(email => email.id)
   try {
-    await axios.patch(`${url}/messages/`, {messageIds: ids, command: 'read'});
+    await axios.patch(`${url}/messages/`, {messageIds: ids, command: 'read', read: true});
+    this.getMessages();
+  }catch(err) {
+    console.log(err)
+  }
+}
+
+markAsUnread = async () => {
+  const inBox = this.state.inbox;
+  const ids = inBox.filter(emails => emails.selected === true).map(email => email.id)
+  try {
+    await axios.patch(`${url}/messages/`, {messageIds: ids, command: 'read', read: false});
     this.getMessages();
   }catch(err) {
     console.log(err)
