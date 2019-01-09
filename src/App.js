@@ -21,6 +21,13 @@ class App extends Component {
     })
   };
 
+  toggleForm = () => {
+    this.setState({
+      compose: !this.state.compose
+    })
+    console.log(this.state.compose)
+  }
+
   getMessages = async () => {
     try {
       const response = await axios.get(`${url}/messages`);
@@ -130,10 +137,12 @@ componentDidMount() {
     return (
       <div className="App">
         <header className="container">
-          <ToolBar inBox={this.state.inbox} removeLabel={this.removeLabel} addLabel={this.addLabel} handleSelectAll ={this.handleSelectAll} markAsUnread={this.markAsUnread} markAsRead={this.markAsRead}/>
+          <ToolBar toggleForm={this.toggleForm} inBox={this.state.inbox} removeLabel={this.removeLabel} addLabel={this.addLabel} handleSelectAll ={this.handleSelectAll} markAsUnread={this.markAsUnread} markAsRead={this.markAsRead}/>
         </header>
         <main className = "container">
-          <ComposeForm />
+          {
+            this.state.compose ? <ComposeForm /> : null
+          }
           <InBox inBox={this.state.inbox} toggleSelection={this.toggleSelection} toggleStar={this.toggleStar}/>
         </main>
       </div>
