@@ -28,6 +28,18 @@ class App extends Component {
     console.log(this.state.compose)
   }
 
+  submitForm = async (body) => {
+    try {
+      await axios.post(`${url}/messages`, body);
+      this.setState({
+        compose: false
+      });
+      this.getMessages();
+    }catch(err) {
+      console.log(err)
+    }
+  }
+
   getMessages = async () => {
     try {
       const response = await axios.get(`${url}/messages`);
@@ -141,7 +153,7 @@ componentDidMount() {
         </header>
         <main className = "container">
           {
-            this.state.compose ? <ComposeForm /> : null
+            this.state.compose ? <ComposeForm submitForm = {this.submitForm} /> : null
           }
           <InBox inBox={this.state.inbox} toggleSelection={this.toggleSelection} toggleStar={this.toggleStar}/>
         </main>
