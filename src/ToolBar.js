@@ -9,7 +9,7 @@ export default class ToolBar extends Component {
     }
 
     countUnreadMessages = () => {
-        const unread = this.props.inBox.filter(mail => mail.read === true);
+        const unread = this.props.inBox.filter(mail => mail.read === false);
         return unread.length
     }
 
@@ -30,6 +30,10 @@ export default class ToolBar extends Component {
                     unread messages
                 </p>
 
+                <a className="btn btn-danger" >
+                <i className="fa fa-plus"></i>
+                </a>
+
                 <button className="btn btn-default" onClick={this.props.handleSelectAll}>
                     <i className="fa fa-check-square-o"></i>
                 </button>
@@ -38,7 +42,7 @@ export default class ToolBar extends Component {
                     Mark As Read
                 </button>
 
-                <button className="btn btn-default">
+                <button onClick={this.props.markAsUnread}className="btn btn-default">
                     Mark As Unread
                 </button>
 

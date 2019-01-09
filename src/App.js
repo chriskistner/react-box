@@ -128,7 +128,7 @@ componentDidMount() {
     return (
       <div className="App">
         <header className="container">
-          <ToolBar inBox={this.state.inbox} removeLabel={this.removeLabel} addLabel={this.addLabel} handleSelectAll ={this.handleSelectAll} markAsRead={this.markAsRead}/>
+          <ToolBar inBox={this.state.inbox} removeLabel={this.removeLabel} addLabel={this.addLabel} handleSelectAll ={this.handleSelectAll} markAsUnread={this.markAsUnread} markAsRead={this.markAsRead}/>
         </header>
         <main className = "container">
           <InBox inBox={this.state.inbox} toggleSelection={this.toggleSelection} toggleStar={this.toggleStar}/>
