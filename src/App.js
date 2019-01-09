@@ -88,6 +88,28 @@ handleSelectAll = () => {
   allSel === true ? this.selectAll() : this.unSelectAll();
 }
 
+addLabel = async (value = null) => {
+  const inBox = this.state.inbox;
+  const ids = inBox.filter(emails => emails.selected === true).map(email => email.id);
+  try {
+    await axios.patch(`${url}/messages/`, {messageIds: ids, command: 'addLabel', label: value });
+    this.getMessages();
+  }catch(err) {
+    console.log(err)
+  }
+};
+
+removeLabel = async (value = null) => {
+  const inBox = this.state.inbox;
+  const ids = inBox.filter(emails => emails.selected === true).map(email => email.id);
+  try {
+    await axios.patch(`${url}/messages/`, {messageIds: ids, command: 'removeLabel', label: value });
+    this.getMessages();
+  }catch(err) {
+    console.log(err)
+  }
+}
+
 componentDidMount() {
   this.getMessages();
 };
@@ -96,7 +118,7 @@ componentDidMount() {
     return (
       <div className="App">
         <header className="container">
-          <ToolBar handleSelectAll ={this.handleSelectAll} markAsRead={this.markAsRead}/>
+          <ToolBar inBox={this.state.inbox} removeLabel={this.removeLabel} addLabel={this.addLabel} handleSelectAll ={this.handleSelectAll} markAsRead={this.markAsRead}/>
         </header>
         <main className = "container">
           <InBox inBox={this.state.inbox} toggleSelection={this.toggleSelection} toggleStar={this.toggleStar}/>
