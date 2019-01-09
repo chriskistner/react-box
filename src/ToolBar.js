@@ -9,7 +9,8 @@ export default class ToolBar extends Component {
     }
 
     countUnreadMessages = () => {
-        const unread
+        const unread = this.props.inBox.filter(mail => mail.read === true);
+        return unread.length
     }
 
     handleAddLabel = (event) => {
@@ -25,7 +26,7 @@ export default class ToolBar extends Component {
         <div className="row toolbar">
             <div className="col-md-12">
                 <p className="pull-right">
-                    <span className="badge badge">2</span>
+                    <span className="badge badge">{this.countUnreadMessages()}</span>
                     unread messages
                 </p>
 
