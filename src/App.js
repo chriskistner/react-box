@@ -44,11 +44,10 @@ markAsRead = async () => {
   const ids = inBox.filter(emails => emails.selected === true).map(email => email.id)
   try {
     await axios.patch(`${url}/messages/`, {messageIds: ids, command: 'read'});
+    this.getMessages();
   }catch(err) {
     console.log(err)
   }
-  this.getMessages();
-  this.unSelectAll();
 }
 
 toggleSelection = (id) => {

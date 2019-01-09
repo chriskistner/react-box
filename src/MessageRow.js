@@ -15,7 +15,7 @@ export default class MessageRow extends Component {
     };
 
     toggleRead = () => {
-        return this.props.read ? "read" : "unread";
+        return this.props.read ? "unread" : "read";
     }
 
     toggleSelected = () => {
