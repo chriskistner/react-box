@@ -4,10 +4,7 @@ import MessageRow from './MessageRow.js';
 export default class InBox extends Component {
     constructor(props) {
         super(props)
-
-        this.state = {
-
-        }
+        this.state = {}
     }
 
     render() {

@@ -5,7 +5,8 @@ export default class ComposeForm extends Component {
         super(props)
 
         this.state = {
-
+            subject: '',
+            body: ''
         }
     }
 
